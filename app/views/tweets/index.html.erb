@@ -1,0 +1,27 @@
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <% if user_signed_in? %>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+        <%= fa_icon("sign-out 3x") %>
+        <li><%= link_to "投稿", "tweets/new",method: :get %></li>
+        <% else %>
+        <li><%= link_to "サインイン", user_session_path, method: :post %> </li>
+        <%= fa_icon("sign-in 2x") %>
+        <li><%= link_to "新規登録", new_user_registration_path,method: :get %> </li>
+      </ul>
+      <% end %>
+    </div>
+  </nav>
+
+
+  <div class="contents row">
+   <% @tweets.each do |tweet| %>
+   <%= render partial: "tweet", locals: { tweet: tweet } %>
+
+      <% end %>
+    <%= paginate(@tweets) %>
+  </div>
+
+<script type="text/javascript" src="./app.js"></script>
